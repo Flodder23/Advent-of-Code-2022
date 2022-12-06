@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
 partial class Day04 {
-	public override ((int, int), (int, int))[] GetParsedInput() {
-		string[] input = raw_input.Split(Environment.NewLine);
+	public override ((int, int), (int, int))[] ParseInput(string? raw_input = null) {
+		string[] input = (raw_input ?? GetRawInput()).Split(Environment.NewLine);
 
 		var output = new ((int, int), (int, int))[input.Length];
 		for (int i = 0; i < output.Length; i++) {

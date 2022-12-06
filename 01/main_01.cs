@@ -1,5 +1,6 @@
 ﻿partial class Day01 : Day<int[][], int, int> {
-	public Day01(int day_ref_int) : base(day_ref_int) {}
+	public Day01(int day_ref_int) : base(day_ref_int) { }
+	public Day01() : base(1) { }
 
 	private int SumTopCalories(int[][] input, int n = 1) {
 		int[] max = new int[n];

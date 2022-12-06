@@ -1,5 +1,6 @@
 ﻿partial class Day05 : Day<(Stack<char>[], (int, int, int)[]), string, string> {
 	public Day05(int day_ref_int) : base(day_ref_int) { }
+	public Day05() : base(5) { }
 
 	private Stack<char>[] Duplicate(in Stack<char>[] to_duplicate) {
 		var duplicate = new Stack<char>[to_duplicate.Length];

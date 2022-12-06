@@ -14,13 +14,13 @@ The folder for day 0 is a template folder to allow for easier creation of new da
 This is also included in the array `days` of `Day` objects because it makes day number `x` correspond to `days[x]` instead of `days[x-1]`.
 
 ## Progress
-How solved each day is; each `*`, `-` and `.` corresponds to a part of a day, with `*` meaning that part is correctly solved, `-` meaning that part has been attempted but might not be working, and `.` meaning that part has not been attempted (or that any attempts haven't been worth uploading). (Missing days haven't been attempted yet at all)
+This is a note of how solved each day is; each `*`, `-` and `.` corresponds to a part of a day, with `*` meaning that part is correctly solved, `-` meaning that part has been attempted but might not be working, and `.` meaning that part has not been attempted (or that any attempts haven't been worth uploading). (Missing days haven't been attempted yet at all)
 ```
-	1 - **
-	2 - **
-	3 - **
-	4 - **
-	5 - **
-	6 - **
+	 01	**
+	 02	**
+	 03	**
+	 04	**
+	 05	**
+	 06	**
 ```
 Total stars: 10

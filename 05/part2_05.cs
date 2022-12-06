@@ -19,7 +19,6 @@
 			output += stack.Pop();
 		}
 
-		sol_2 = output;
 		return output;
 	}
 }

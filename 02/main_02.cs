@@ -1,5 +1,6 @@
 ﻿partial class Day02 : Day<(int, int)[], int, int> {
 	public Day02(int day_ref_int) : base(day_ref_int) { }
+	public Day02() : base(2) { }
 
 	private Dictionary<(int, int), int>? overall_score;
 	Dictionary<(int, int), int>? to_fix;

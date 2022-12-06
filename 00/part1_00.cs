@@ -1,5 +1,5 @@
 ﻿partial class Day00 {
-	public override string Part1(in int input) {
-		return "part_1";
+	public override int Part1(in string input) {
+		return 1;
 	}
 }

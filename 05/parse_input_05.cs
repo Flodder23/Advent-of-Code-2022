@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
 partial class Day05 {
-	public override (Stack<char>[], (int, int, int)[]) GetParsedInput() {
-		string[] input = raw_input.Split(Environment.NewLine + Environment.NewLine);
+	public override (Stack<char>[], (int, int, int)[]) ParseInput(string? raw_input = null) {
+		string[] input = (raw_input ?? GetRawInput()).Split(Environment.NewLine + Environment.NewLine);
 
 		string[] raw_stacks = input[0].Split(Environment.NewLine);
 		Stack<char>[] stacks = new Stack<char>[(raw_stacks[0].Length + 1) / 4];

@@ -1,5 +1,6 @@
 ﻿partial class Day06 : Day<char[], int, int> {
-	public Day06(int day_ref_int) : base(day_ref_int) {}
+	public Day06(int day_ref_int) : base(day_ref_int) { }
+	public Day06() : base(6) { }
 
 	// Checks for duplicated in subarray starting at startpos (inclusive) and ending at endpos (exclusive)
 	// Returns position of first duplicate if exists, -1 otherwise
