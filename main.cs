@@ -1,4 +1,6 @@
-﻿Day[] days = new Day[25];
+﻿using System.Diagnostics;
+
+Day[] days = new Day[25];
 int latest_day = -1;
 
 int day_ref_int = 0;
@@ -19,14 +21,43 @@ if (latest_day < 0) {
 	days[latest_day].Run(write_sol_1: true, write_sol_2: true);
 }
 
-Console.WriteLine("Enter \"y\" to run every day's solution, or anything else to quit.");
+Console.WriteLine("Enter \"y\" to run and time every day's solution, or anything else to quit.");
 if (Console.ReadLine() == "y") {
 	for (int i = 1; i < days.Length; i++) {
 		if (days[i] != null) {
 			Console.WriteLine($"\nRunning Day {i:D2}...");
-			days[i].Run(write_sol_1: true, write_sol_2: true);
+			days[i].Run(true, true, true); // run once to avoid one-time performance hits and to write input values
+			days[i].WriteSols();
+			float parse_input_ms = TimeFunctionNs(() => days[i].SetParsedInput(true), false);
+			float parse_part_1_ms = TimeFunctionNs(() => days[i].RunPart1(true), false);
+			float parse_part_2_ms = TimeFunctionNs(() => days[i].RunPart2(true), false);
+			Console.WriteLine(
+				$" input: {parse_input_ms:N3}ms \n" +
+				$"part 1: {parse_part_1_ms:N3}ms	\n" +
+				$"part 2: {parse_part_2_ms:N3}ms \n" +
+				$" total: {(parse_input_ms + parse_part_1_ms + parse_part_2_ms):N3}ms"
+			);
 		}
 	}
+}
+
+float TimeFunctionNs(Action function, bool skip_first = true, int times_to_run = 120, int trim_outliers = 10) {
+	if (skip_first) {
+		function(); // run once to avoid one-time performance hits and to write input values
+	}
+
+	Stopwatch sw = new Stopwatch();
+	List<long> ticks = new();
+	for (int i = 0; i < times_to_run; i++) {
+		sw.Reset();
+		sw.Start();
+		function();
+		sw.Stop();
+		ticks.Add(sw.ElapsedTicks);
+	}
+
+	ticks.Sort();
+	return (ticks.Skip(trim_outliers).SkipLast(trim_outliers).Sum() * (1000L * 1000L)) / (float)((times_to_run - 2 * trim_outliers) * Stopwatch.Frequency);
 }
 
 abstract class Day {
@@ -67,6 +98,12 @@ abstract class Day {
 
 	public abstract void SetParsedInput(bool force = false);
 
+	public abstract void WriteSol1();
+	public abstract void WriteSol2();
+	public void WriteSols() {
+		WriteSol1();
+		WriteSol2();
+	}
 	public abstract void RunPart1(bool force = true, bool force_parse_input = false, bool write_out = false);
 	public abstract void RunPart2(bool force = true, bool force_parse_input = false, bool write_out = false);
 	public abstract void Run(bool force_input_parse = false, bool force_part_1 = false, bool force_part_2 = false, bool write_sol_1 = false, bool write_sol_2 = false);
@@ -99,6 +136,13 @@ abstract class Day<InputType, Sol1Type, Sol2Type> : Day {
 		return parsed_input;
 	}
 
+	public override void WriteSol1() {
+		Console.WriteLine($"Day {day_ref_str} Part 1: {sol_1}");
+	}
+	public override void WriteSol2() {
+		Console.WriteLine($"Day {day_ref_str} Part 2: {sol_2}");
+	}
+
 	public abstract Sol1Type Part1(in InputType input);
 	public override void RunPart1(bool force = true, bool force_parse_input = false, bool write_out = false) {
 		if (force || !has_sol_1) {
@@ -108,7 +152,7 @@ abstract class Day<InputType, Sol1Type, Sol2Type> : Day {
 		}
 
 		if (write_out) {
-			Console.WriteLine($"Day {day_ref_str} Part 1: {sol_1}");
+			WriteSol1();
 		}
 	}
 	public Sol1Type GetSol1(bool set_if_needed = true) {
@@ -127,7 +171,7 @@ abstract class Day<InputType, Sol1Type, Sol2Type> : Day {
 		}
 
 		if (write_out) {
-			Console.WriteLine($"Day {day_ref_str} Part 2: {sol_2}");
+			WriteSol2();
 		}
 	}
 	public Sol2Type GetSol2(bool set_if_needed = true) {
