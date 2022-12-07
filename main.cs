@@ -28,20 +28,20 @@ if (Console.ReadLine() == "y") {
 			Console.WriteLine($"\nRunning Day {i:D2}...");
 			days[i].Run(true, true, true); // run once to avoid one-time performance hits and to write input values
 			days[i].WriteSols();
-			float parse_input_ms = TimeFunctionNs(() => days[i].SetParsedInput(true), false);
-			float parse_part_1_ms = TimeFunctionNs(() => days[i].RunPart1(true), false);
-			float parse_part_2_ms = TimeFunctionNs(() => days[i].RunPart2(true), false);
+			float parse_input_ms = TimeFunctionMicro(() => days[i].SetParsedInput(true));
+			float parse_part_1_ms = TimeFunctionMicro(() => days[i].RunPart1(true));
+			float parse_part_2_ms = TimeFunctionMicro(() => days[i].RunPart2(true));
 			Console.WriteLine(
-				$" input: {parse_input_ms:N3}ms \n" +
-				$"part 1: {parse_part_1_ms:N3}ms	\n" +
-				$"part 2: {parse_part_2_ms:N3}ms \n" +
-				$" total: {(parse_input_ms + parse_part_1_ms + parse_part_2_ms):N3}ms"
+				$" input: {parse_input_ms:N3}µs\n" +
+				$"part 1: {parse_part_1_ms:N3}µs\n" +
+				$"part 2: {parse_part_2_ms:N3}µs\n" +
+				$" total: {(parse_input_ms + parse_part_1_ms + parse_part_2_ms):N3}µs"
 			);
 		}
 	}
 }
 
-float TimeFunctionNs(Action function, bool skip_first = true, int times_to_run = 120, int trim_outliers = 10) {
+float TimeFunctionMicro(Action function, bool skip_first = false, int times_to_run = 120, int trim_outliers = 10) {
 	if (skip_first) {
 		function(); // run once to avoid one-time performance hits and to write input values
 	}
