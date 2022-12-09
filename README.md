@@ -22,5 +22,7 @@ This is a note of how solved each day is; each `*`, `-` and `.` corresponds to a
 	04 **
 	05 **
 	06 **
+	07 **
+	08 **
 ```
 Total stars: 10
