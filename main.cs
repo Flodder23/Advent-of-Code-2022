@@ -21,8 +21,9 @@ if (latest_day < 0) {
 	days[latest_day].Run(write_sol_1: true, write_sol_2: true);
 }
 
-Console.WriteLine("Enter \"y\" to run and time every day's solution, or anything else to quit.");
-if (Console.ReadLine() == "y") {
+Console.WriteLine("Enter \"y\" to run and time every day's solution, a number to run that day's solution, or anything else to quit.");
+string input = Console.ReadLine();
+if (input == "y") {
 	for (int i = 1; i < days.Length; i++) {
 		if (days[i] != null) {
 			Console.WriteLine($"\nRunning Day {i:D2}...");
@@ -39,6 +40,8 @@ if (Console.ReadLine() == "y") {
 			);
 		}
 	}
+} else if (int.TryParse(input, out int day_to_run)) {
+	days[day_to_run].Run(write_sol_1: true, write_sol_2: true);
 }
 
 float TimeFunctionMicro(Action function, bool skip_first = false, int times_to_run = 120, int trim_outliers = 10) {
