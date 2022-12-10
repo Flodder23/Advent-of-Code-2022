@@ -18,7 +18,10 @@ if (latest_day < 0) {
 	Console.WriteLine("Couldn't find any puzzle solutions to run.");
 } else {
 	Console.WriteLine($"Running most recent day (Day {latest_day:D2})...");
-	days[latest_day].Run(write_sol_1: true, write_sol_2: true);
+	if (days[latest_day].RunTests()) {
+		Console.WriteLine("Tests Passed!");
+		days[latest_day].Run(write_sol_1: true, write_sol_2: true);
+	}
 }
 
 Console.WriteLine("Enter \"y\" to run and time every day's solution, a number to run that day's solution, or anything else to quit.");
@@ -27,6 +30,12 @@ if (input == "y") {
 	for (int i = 1; i < days.Length; i++) {
 		if (days[i] != null) {
 			Console.WriteLine($"\nRunning Day {i:D2}...");
+			if (days[i].RunTests()) {
+				Console.WriteLine("Tests Passed!");
+			}
+			else {
+				continue;
+			}
 			days[i].Run(true, true, true); // run once to avoid one-time performance hits and to write input values
 			days[i].WriteSols();
 			float parse_input_ms = TimeFunctionMicro(() => days[i].SetParsedInput(true));
@@ -110,6 +119,8 @@ abstract class Day {
 	public abstract void RunPart1(bool force = true, bool force_parse_input = false, bool write_out = false);
 	public abstract void RunPart2(bool force = true, bool force_parse_input = false, bool write_out = false);
 	public abstract void Run(bool force_input_parse = false, bool force_part_1 = false, bool force_part_2 = false, bool write_sol_1 = false, bool write_sol_2 = false);
+
+	public abstract bool RunTests(bool skip_1 = false, bool skip_2 = false, bool write_fail_1 = true, bool write_fail_2 = true);
 }
 
 abstract class Day<InputType, Sol1Type, Sol2Type> : Day {
@@ -190,5 +201,40 @@ abstract class Day<InputType, Sol1Type, Sol2Type> : Day {
 		RunPart1(force_part_1, write_out: write_sol_1);
 
 		RunPart2(force_part_2, write_out: write_sol_2);
+	}
+
+	public abstract (string, Sol1Type)[] Tests1();
+	public abstract (string, Sol2Type)[] Tests2();
+
+	public bool RunTests1(bool write_fail = true) {
+		int test_no = 0;
+		foreach ((string raw_input, Sol1Type sol) in Tests1()) {
+			test_no++;
+			Sol1Type output = Part1(ParseInput(raw_input));
+			if (!Equals(output, sol)) {
+				if (write_fail) {
+					Console.WriteLine($"Part 1 Test {test_no} Failed; Output {output}.");
+				}
+				return false;
+			}
+		}
+		return true;
+	}
+	public bool RunTests2(bool write_fail = true) {
+		int test_no = 0;
+		foreach ((string raw_input, Sol2Type sol) in Tests2()) {
+			test_no++;
+			Sol2Type output = Part2(ParseInput(raw_input));
+			if (!Equals(output, sol)) {
+				if (write_fail) {
+					Console.WriteLine($"Part 2 Test {test_no} Failed; Output {output}.");
+				}
+				return false;
+			}
+		}
+		return true;
+	}
+	public override bool RunTests(bool skip_1 = false, bool skip_2 = false, bool write_fail_1 = true, bool write_fail_2 = true) {
+		return (skip_1 || RunTests1(write_fail_1)) && (skip_2 || RunTests2(write_fail_2));
 	}
 }
