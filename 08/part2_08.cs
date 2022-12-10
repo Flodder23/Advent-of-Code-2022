@@ -47,7 +47,7 @@
 			i_dir > 0 ? i < i_end : i >= i_end;
 			i += i_dir
 		) {
-			for (int j = j_start;
+			for (int j = j_start + j_dir;
 				j_dir > 0 ? j < j_end : j >= j_end;
 				j += j_dir
 			) {
@@ -55,16 +55,16 @@
 				int c = row ? j : i;
 
 				int k = j - j_dir;
-				while (j_dir > 0 ? k >= j_start : k <= j_start) {
+				viewing_distances[r, c, view_dir]++;
+
+				while (j_dir > 0 ? k > j_start : k < j_start) {
 					int new_r = row ? i : k;
 					int new_c = row ? k : i;
-					viewing_distances[r, c, view_dir]++;
-					k -= j_dir;
 					if (forest[r, c] <= forest[new_r, new_c]) {
 						break;
 					} else {
-//						viewing_distances[r, c, view_dir] += viewing_distances[new_r, new_c, view_dir];
-//						k -= j_dir * viewing_distances[new_r, new_c, view_dir];
+						viewing_distances[r, c, view_dir] += viewing_distances[new_r, new_c, view_dir];
+						k -= j_dir * viewing_distances[new_r, new_c, view_dir];
 					}
 				}
 			}
