@@ -69,7 +69,7 @@ public class MonkeyGroup {
 
 		if (!worry_decrease) {
 			foreach (Monkey monkey in monkeys) {
-				global_modulo = LeastCommonMultiple(global_modulo, monkey.test);
+				global_modulo = Functions.LeastCommonMultiple(global_modulo, monkey.test);
 			}
 		}
 	}
@@ -99,15 +99,5 @@ public class MonkeyGroup {
 			}
 		}
 		return (long)max[0] * max[1];
-	}
-
-	private static int GreatestCommonFactor(int a, int b) {
-		while (b != 0) {
-			(a, b) = (b, a % b);
-		}
-		return a;
-	}
-	private static int LeastCommonMultiple(int a, int b) {
-		return (a * b) / GreatestCommonFactor(a, b);
 	}
 }
