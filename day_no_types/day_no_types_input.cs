@@ -8,7 +8,7 @@
 	protected string? raw_input;
 	protected string? raw_input_location;
 	public string FetchRawInput() {
-		return File.ReadAllText(input_location).TrimEnd('\n');
+		return File.ReadAllText(input_location).TrimEnd();
 	}
 	public void SetRawInput() {
 		if (raw_input == null || raw_input_location != input_location) {
