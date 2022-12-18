@@ -33,5 +33,6 @@ This is a note of how solved each day is; each `*`, `-` and `.` corresponds to a
 	15 **
 	16 ..
 	17 **
+	18 **
 ```
-Total stars: 32
+Total stars: 34
