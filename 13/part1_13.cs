@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-partial class Day13 {
+﻿partial class Day13 {
 	public override int Part1(in (object[], object[])[] input) {
 		int sum = 0;
 		for (int i = 0; i < input.Length; i++) {

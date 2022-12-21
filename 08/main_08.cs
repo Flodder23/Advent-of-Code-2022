@@ -2,7 +2,7 @@
 	public Day08(int day_ref_int) : base(day_ref_int) { }
 	public Day08() : base(8) { }
 
-/*	private class Tree {
+/*	internal class Tree {
 		(int, int) position;
 		(bool, bool, bool, bool)? seen_from_edge;
 		(int, int, int, int)? viewing_distances;
@@ -14,7 +14,7 @@
 		}
 	}
 
-	private class Forest {
+	internal class Forest {
 		private Tree[,] trees = new Tree[0, 0];
 
 	}*/

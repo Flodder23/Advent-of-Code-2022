@@ -1,6 +1,6 @@
 ﻿partial class Day02 {
 	public override int Part1(in (int, int)[] input) {
-		precalc_scores();
+		Dictionary<(int, int), int> overall_score = PrecalcScores();
 
 		int sum = 0;
 		foreach ((int, int) choices in input) {

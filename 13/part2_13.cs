@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-partial class Day13 {
+﻿partial class Day13 {
 	public override int Part2(in (object[], object[])[] input) {
 		object[] inp = new object[input.Length * 2 + 2];
 		for (int i = 0; i < input.Length; i++) {

@@ -1,6 +1,4 @@
-﻿// thanks to https://www.reddit.com/r/adventofcode/comments/zmw9d8/2022_day_15_part_2_speed_up_your_solution_60000x/ for the inspiration
-
-partial class Day15 {
+﻿partial class Day15 {
 	public override long Part2(in ((int, int), (int, int))[] input) {
 		int min_x = 0, max_x = 4_000_001, min_y = 0, max_y = 4_000_001;
 		((int, int), int)[] sensors = input.Select(info => (info.Item1, Manhattan(info.Item1, info.Item2))).ToArray();
@@ -20,29 +18,32 @@ partial class Day15 {
 			}
 		}
 
-//		This solution actually runs slower but if I can search through fewer
-//		points by eg. finding intersections then it will become much quicker
-//		than the "brute-force-all-4_000_000-lines" method so I'll leave
-//		this here in case I get around to implementing that at some point
-	
-/*		foreach (((int, int), int) sensor in sensors) {
-			int x = sensor.Item1.Item1, y = sensor.Item1.Item2;
-			int len = sensor.Item2 + 1;
-			for (int i = 0; i <= len; i++) {
-				foreach ((int x_diff, int y_diff) in new (int, int)[] {
-					(i, len - i), (len - i, i), (-i, len + i), (len + i, -i) }
-				) {
-					int new_x = x + x_diff, new_y = y + y_diff;
-					if (min_x <= new_x && new_x < max_x &&
-						min_y <= new_y && new_y < max_y &&
-						!IsInSensorRange((x + x_diff, y + y_diff), sensors)
-					) {
-						return (long)(x + x_diff) * 4_000_000 + (y + y_diff);
+		//		This solution (inspired by
+		//		https://www.reddit.com/r/adventofcode/comments/zmw9d8/2022_day_15_part_2_speed_up_your_solution_60000x/
+		//		) actually runs slower but if I can search through fewer
+		//		points by eg. finding intersections then it will become much quicker
+		//		than the "brute-force-all-4_000_000-lines" method so I'll leave
+		//		this here in case I get around to implementing that at some point
+
+		/*		foreach (((int, int), int) sensor in sensors) {
+					int x = sensor.Item1.Item1, y = sensor.Item1.Item2;
+					int len = sensor.Item2 + 1;
+					for (int i = 0; i <= len; i++) {
+						foreach ((int x_diff, int y_diff) in new (int, int)[] {
+							(i, len - i), (len - i, i), (-i, len + i), (len + i, -i) }
+						) {
+							int new_x = x + x_diff, new_y = y + y_diff;
+							if (min_x <= new_x && new_x < max_x &&
+								min_y <= new_y && new_y < max_y &&
+								!IsInSensorRange((x + x_diff, y + y_diff), sensors)
+							) {
+								return (long)(x + x_diff) * 4_000_000 + (y + y_diff);
+							}
+						}
 					}
 				}
-			}
-		}
-*/		return 2;
+		*/
+		return 2;
 	}
 
 /*	private bool IsInSensorRange((int, int) point, ((int, int), int)[] sensors) {

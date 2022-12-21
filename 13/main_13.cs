@@ -2,7 +2,7 @@
 	public Day13(int day_ref_int) : base(day_ref_int) { }
 	public Day13() : base(13) { }
 
-	private (bool, bool) Compare(in object left, in object right) {
+	private static (bool, bool) Compare(in object left, in object right) {
 		if (left is int) {
 			if (right is int) {
 				return ((int)left != (int)right, (int)left < (int)right);
@@ -34,7 +34,7 @@
 		}
 	}
 
-	private string Write(object item) {
+	private static string Write(object item) {
 		if (item is int) {
 			return item.ToString();
 		}

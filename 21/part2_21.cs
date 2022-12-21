@@ -13,10 +13,6 @@
 			monkeys[monkeys["root"].left].GetNumber(monkeys);
 		}
 
-//		foreach (string name in monkeys.Keys) {
-//			Console.WriteLine(name+ ": " + monkeys[name].number);
-//		}
-
 		return (long)monkeys["humn"].GetNumber(monkeys);
 	}
 }

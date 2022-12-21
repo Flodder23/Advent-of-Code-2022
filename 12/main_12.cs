@@ -1,10 +1,8 @@
-﻿using System.Drawing;
-
-partial class Day12 : Day<(int[,], (int, int), (int, int)), int, int> {
+﻿partial class Day12 : Day<(int[,], (int, int), (int, int)), int, int> {
 	public Day12(int day_ref_int) : base(day_ref_int) { }
 	public Day12() : base(12) { }
 
-	private int RunSimpleSearch(
+	private static int RunSimpleSearch(
 		in int[,] map, in (int, int) start_pos,
 		Func<HashSet<(int, int)>, bool> stop_criteria,
 		Func<(int, int), (int, int), int[,], bool> add_criteria

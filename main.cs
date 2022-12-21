@@ -41,6 +41,13 @@ while (!stop) {
 			}
 		}
 	} else if (int.TryParse(input, out int day_to_run)) {
+		Console.WriteLine($"\nRunning Day {day_to_run:D2}...");
+		if (days[day_to_run].RunTests()) {
+			Console.WriteLine("Tests Passed!");
+		}
+		else {
+			continue;
+		}
 		days[day_to_run].RunTimed();
 	} else {
 		stop = true;

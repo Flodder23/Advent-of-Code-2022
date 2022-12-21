@@ -4,28 +4,7 @@ partial class Day21 : Day<Dictionary<string, Day21.Monkey>, long, long> {
 	public Day21(int day_ref_long) : base(day_ref_long) { }
 	public Day21() : base(21) { }
 
-	private static Dictionary<char, Func<long, long, long>> Calculate = new() {
-		{ '+', (long l, long r) => l + r },
-		{ '-', (long l, long r) => l - r },
-		{ '*', (long l, long r) => l * r },
-		{ '/', (long l, long r) => l / r }
-	};
-	private static Dictionary<char, Func<long, long, long>> GetLeft = new() {
-		{ '+', (long r, long result) => result - r },
-		{ '-', (long r, long result) => result + r },
-		{ '*', (long r, long result) => result / r },
-		{ '/', (long r, long result) => result * r },
-		{ '=', (long r, long result) => r }
-	};
-	private static Dictionary<char, Func<long, long, long>> GetRight = new() {
-		{ '+', (long l, long result) => result - l },
-		{ '-', (long l, long result) => l - result },
-		{ '*', (long l, long result) => result / l },
-		{ '/', (long l, long result) => l / result },
-		{ '=', (long l, long result) => l }
-	};
-
-	public class Monkey {
+	internal class Monkey {
 		public string? left, right;
 		public char? oper;
 		public long? number;
@@ -59,14 +38,35 @@ partial class Day21 : Day<Dictionary<string, Day21.Monkey>, long, long> {
 		}
 	}
 
-	Monkey CopyMonkey(in Monkey monkey) {
+	private static Dictionary<char, Func<long, long, long>> Calculate = new() {
+		{ '+', (long l, long r) => l + r },
+		{ '-', (long l, long r) => l - r },
+		{ '*', (long l, long r) => l * r },
+		{ '/', (long l, long r) => l / r }
+	};
+	private static Dictionary<char, Func<long, long, long>> GetLeft = new() {
+		{ '+', (long r, long result) => result - r },
+		{ '-', (long r, long result) => result + r },
+		{ '*', (long r, long result) => result / r },
+		{ '/', (long r, long result) => result * r },
+		{ '=', (long r, long result) => r }
+	};
+	private static Dictionary<char, Func<long, long, long>> GetRight = new() {
+		{ '+', (long l, long result) => result - l },
+		{ '-', (long l, long result) => l - result },
+		{ '*', (long l, long result) => result / l },
+		{ '/', (long l, long result) => l / result },
+		{ '=', (long l, long result) => l }
+	};
+
+	private static Monkey CopyMonkey(in Monkey monkey) {
 		if (monkey.oper is null) {
 			return new Monkey((long)monkey.number);
 		} else {
 			return new Monkey(monkey.left, monkey.right, (char)monkey.oper);
 		}
 	}
-	Dictionary<string, Monkey> CopyMonkeyDict(in Dictionary<string, Monkey> monkeys) {
+	private static Dictionary<string, Monkey> CopyMonkeyDict(in Dictionary<string, Monkey> monkeys) {
 		Dictionary<string, Monkey> new_monkeys = new();
 		foreach (string name in monkeys.Keys) {
 			new_monkeys.Add(name, CopyMonkey(monkeys[name]));

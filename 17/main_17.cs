@@ -49,6 +49,11 @@
 		return (cycles_skipped * cycle_height) + highest_point;
 	}
 
+	private static bool CheckCollision(int shape, (int, int) pos, Dictionary<int, bool[]> rows) =>
+		!Array.TrueForAll(GetCollisionPoints[shape](pos), p => !IsAnythingAt(p, rows));
+	private static bool IsAnythingAt((int, int) pos, Dictionary<int, bool[]> rows) =>
+		(pos.Item1 < 0 || 6 < pos.Item1) ? true : (rows.TryGetValue(pos.Item2, out bool[] row) ? row[pos.Item1] : false);
+
 	private static bool MoveAcross(int shape, bool dir, ref (int, int) pos, Dictionary<int, bool[]> rows) {
 		return Move(shape, ref pos, (pos.Item1 + (dir ? 1 : -1), pos.Item2), rows);
 	}
@@ -65,11 +70,11 @@
 		}
 	}
 
-	private static bool CheckCollision(int shape, (int, int) pos, Dictionary<int, bool[]> rows) =>
-		!Array.TrueForAll(GetCollisionPoints[shape](pos), p => !IsAnythingAt(p, rows));
-	private static bool IsAnythingAt((int, int) pos, Dictionary<int, bool[]> rows) =>
-		(pos.Item1 < 0 || 6 < pos.Item1) ? true : (rows.TryGetValue(pos.Item2, out bool[] row) ? row[pos.Item1] : false);
-
+	private static void AddShape(int shape, (int, int) pos, Dictionary<int, bool[]> rows) {
+		foreach ((int, int) p in GetCollisionPoints[shape](pos)) {
+			AddRock(p, rows);
+		}
+	}
 	private static void AddRock((int, int) pos, Dictionary<int, bool[]> rows) {
 		if (rows.TryGetValue(pos.Item2, out bool[] row)) {
 			row[pos.Item1] = true;
@@ -78,12 +83,7 @@
 			rows[pos.Item2][pos.Item1] = true;
 		}
 	}
-	private static void AddShape(int shape, (int, int) pos, Dictionary<int, bool[]> rows) {
-		foreach ((int, int) p in GetCollisionPoints[shape](pos)) {
-			AddRock(p, rows);
-		}
-	}
-
+	
 
 	private static readonly Dictionary<int, Func<(int, int), (int, int)[]>> GetCollisionPoints = new() {
 		{ 0, point => new (int, int)[] {
@@ -122,5 +122,4 @@
 		{ 3, point => point.Item2 + 3 },
 		{ 4, point => point.Item2 + 1 }
 	};
-
 }

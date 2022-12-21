@@ -2,7 +2,7 @@
 	public Day09(int day_ref_int) : base(day_ref_int) { }
 	public Day09() : base(9) { }
 
-	private int GetTailVisited(((int, int), int)[] instr, int len) {
+	private static int GetTailVisited(((int, int), int)[] instr, int len) {
 		(int, int)[] pos = new (int, int)[len];
 		HashSet<(int ,int)> already_visited = new() { (0, 0) };
 
@@ -22,7 +22,7 @@
 		return already_visited.Count;
 	}
 
-	private (int, int) MoveTowards((int, int) pos, (int, int) target) {
+	private static (int, int) MoveTowards((int, int) pos, (int, int) target) {
 		(int, int) dir = (0, 0);
 
 		int diff_1 = target.Item1 - pos.Item1;

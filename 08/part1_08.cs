@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-partial class Day08 {
+﻿partial class Day08 {
 	public override int Part1(in sbyte[,] input) {
 		int count = 0;
 		bool[,] visible = new bool[input.GetLength(0), input.GetLength(1)];

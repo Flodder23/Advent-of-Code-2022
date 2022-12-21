@@ -1,8 +1,4 @@
-﻿using System.Drawing;
-using System.Dynamic;
-using System.Reflection.Metadata.Ecma335;
-
-partial class Day18 {
+﻿partial class Day18 {
 	public override int Part2(in (int, int, int)[] input) {
 		int x_min = input[0].Item1, x_max = input[0].Item1,
 			y_min = input[0].Item2, y_max = input[0].Item2,

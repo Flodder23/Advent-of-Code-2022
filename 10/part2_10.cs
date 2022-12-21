@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-partial class Day10 {
+﻿partial class Day10 {
 	public override string Part2(in int?[] input) {
 		bool[,] screen = new bool[6, 40];
 		int x = 1;

@@ -1,6 +1,4 @@
-﻿using System.Security.Principal;
-
-partial class Day18 : Day<(int, int, int)[], int, int> {
+﻿partial class Day18 : Day<(int, int, int)[], int, int> {
 	public Day18(int day_ref_int) : base(day_ref_int) { }
 	public Day18() : base(18) { }
 
@@ -11,7 +9,7 @@ partial class Day18 : Day<(int, int, int)[], int, int> {
 		side.Item4 - (side.Item4 < 3 ? 0 : 3)
 	);
 
-	public static HashSet<(int, int, int, int)> GetExposedSides((int, int, int)[] coords) {
+	private static HashSet<(int, int, int, int)> GetExposedSides((int, int, int)[] coords) {
 		HashSet<(int, int, int, int)> exposed_sides = new();
 		foreach ((int, int, int) coord in coords) {
 			foreach ((int, int, int, int) side in GetSides(coord)) {
@@ -23,8 +21,7 @@ partial class Day18 : Day<(int, int, int)[], int, int> {
 
 		return exposed_sides;
 	}
-
-	public static IEnumerable<(int, int, int, int)> GetSides((int, int, int) coord) {
+	private static IEnumerable<(int, int, int, int)> GetSides((int, int, int) coord) {
 		for (int side_no = 0; side_no < 6; side_no++) {
 			yield return ToCanon((coord.Item1, coord.Item2, coord.Item3, side_no));
 		}

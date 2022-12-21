@@ -4,7 +4,7 @@
 
 	private static int Manhattan((int, int) a, (int, int) b) => Math.Abs(a.Item1 - b.Item1) + Math.Abs(a.Item2 - b.Item2);
 
-	private List<(int, int)> GetRangesForLine(((int, int), (int, int))[] beacons, int[] beacon_dists, int line_no) {
+	private static List<(int, int)> GetRangesForLine(((int, int), (int, int))[] beacons, int[] beacon_dists, int line_no) {
 		List<(int, int)> ranges = new();
 
 		for (int i = 0; i < beacons.Length; i++) {
@@ -17,7 +17,7 @@
 		return ranges;
 	}
 
-	private void AddRange(List<(int, int)> ranges, (int, int) range) {
+	private static void AddRange(List<(int, int)> ranges, (int, int) range) {
 		int i = 0;
 		while (i < ranges.Count && ranges[i].Item2 <= range.Item1) {
 			i++;

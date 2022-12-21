@@ -1,5 +1,4 @@
 ﻿partial class Day06 {
-	public override char[] ParseInput(string? raw_input = null) {
-		return (raw_input ?? GetRawInput()).ToCharArray();
-	}
+	public override char[] ParseInput(string? raw_input = null) =>
+		(raw_input ?? GetRawInput()).ToCharArray();
 }

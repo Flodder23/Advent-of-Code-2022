@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-partial class Day14 : Day<(Dictionary<int, (int, int)[]>, Dictionary<int, (int, int)[]>, int), int, int> {
+﻿partial class Day14 : Day<(Dictionary<int, (int, int)[]>, Dictionary<int, (int, int)[]>, int), int, int> {
 	public Day14(int day_ref_int) : base(day_ref_int) { }
 	public Day14() : base(14) { }
 
@@ -36,7 +34,7 @@ partial class Day14 : Day<(Dictionary<int, (int, int)[]>, Dictionary<int, (int, 
 		return sand.Count();
 	}
 
-	public static bool CheckCoord((int, int) coord, Dictionary<int, (int, int)[]> cols, Dictionary<int, (int, int)[]>rows) {
+	public static bool CheckCoord((int, int) coord, Dictionary<int, (int, int)[]> cols, Dictionary<int, (int, int)[]> rows) {
 		(int, int)[] ranges;
 		if (cols.TryGetValue(coord.Item1, out ranges)) {
 			foreach ((int r1, int r2) in ranges) {
