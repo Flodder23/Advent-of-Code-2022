@@ -28,4 +28,9 @@ class Functions {
 		ticks.Sort();
 		return (ticks.Skip(trim_outliers).SkipLast(trim_outliers).Sum() * (1000L * 1000L)) / (float)((times_to_run - 2 * trim_outliers) * Stopwatch.Frequency);
 	}
+
+	public static int Modulo(int a, int b) {
+		int r = a % b;
+		return r + (r < 0 ? b : 0);
+	}
 }
