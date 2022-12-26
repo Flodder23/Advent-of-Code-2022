@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
 
-Day[] days = new Day[25];
+Day[] days = new Day[26];
 int latest_day = -1;
 
 int day_ref_int = 0;
-while (day_ref_int <= 25) {
+while (day_ref_int < days.Length) {
 	Type T = Type.GetType($"Day{day_ref_int:D2}");
 	if (T != null) {
 		days[day_ref_int] = (Day)Activator.CreateInstance(T);
